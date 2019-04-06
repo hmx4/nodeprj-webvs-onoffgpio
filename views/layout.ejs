@@ -1,0 +1,77 @@
+<!DOCTYPE html> <!-- !DOCTYPE html是宣告這個網頁是基於HTML5所寫的 -->
+<html> <!-- html為網頁的起始標籤，其內包含了表頭head及內容body兩部分 -->
+<!---->
+<!-- head為網頁的表頭，通常將CSS、引用bootstrap、jquery等meta data，以及javascript函數放在表頭內 -->
+<!---->
+<head>
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style>
+	.navbar {
+		background-color: pink !important;
+	}
+	
+	.navbar .navbar-brand {
+		color: green !important;
+		font-size: 24px;
+		font-weight:bold;
+	}
+
+	.navbar li a {
+		color: #0000ff !important;
+				font-size: 20px;
+		font-weight:bold;
+	}
+
+	.navbar-nav li a:hover, .navbar-nav li.active a {
+		color: #f4511e !important;
+		background-color: #fff !important;
+	}
+
+	.navbar-default .navbar-toggle {
+		border-color: transparent;
+		color: #fff !important;
+	} 
+	</style>
+
+</head>
+<!---->
+<!-- body為網頁的內容，也就是呈現使用者介面UI的地方 -->
+<!---->
+<body>
+<nav class="navbar navbar-default" style="font-family:標楷體">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Web遠端監控應用</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a id="home">首頁</a></li>
+	  		<li><a id="webremotecontrol">Web遠端監控服務</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+	var home_element = document.getElementById("home");
+	home_element.href = '/';
+	//
+	var webremotecontrol_element = document.getElementById("webremotecontrol");
+	webremotecontrol_element.href = '/webcontrol8leds';
+
+</script>
+
+<%- body %>
+	
+
+</body>

@@ -1,0 +1,154 @@
+<!DOCTYPE html> <!-- !DOCTYPE html是宣告這個網頁是基於HTML5所寫的 -->
+<html> <!-- html為網頁的起始標籤，其內包含了表頭head及內容body兩部分 -->
+<!---->
+<!-- head為網頁的表頭，通常將CSS、引用bootstrap、jquery等meta data，以及javascript函數放在表頭內 -->
+<!---->
+<head> 
+	<title>監視與警訊服務</title> <!-- 網頁標題 -->
+	<!-- 以下這5行是引用bootstrap及jquery CDN (Content Delivery Network)的標準動作 -->
+	<meta charset="utf-8"> <!-- 指定內文的編碼，若要顯示中文，通常用utf-8這個unicode編碼 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  
+	<!-- 以下這個匿名函數是jquery的ready事件處理方法，當網頁Ready好的就會自動執行 -->
+	<!-- 因此，可以把要註冊的所有事件處理函數及需要先執行的命令放在這個函數內 -->
+	<script>
+		$(function(){
+		    // 幫id為btn1的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn1').click(function(){
+				$.post(
+					'/web_video_streaming/on',
+					function(data){
+						loadstreaming();  // 顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中					
+					}
+				);
+			});
+			
+			// 幫id為btn2的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn2').click(function(){
+				$.post(
+					'/web_video_streaming/off',
+					function(data){
+						offloadstreaming();  // 不要顯示影像串流
+						//alert(data.message); // 顯示狀況在警告視窗中						
+					}
+				);
+			});
+			
+			// 幫id為btn3的按鈕標籤註冊了點擊事件的處理方法
+			$('#btn3').click(function(){
+				$.post(
+					'/control8leds/1',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+			
+			// 幫id為btn4的按鈕標籤註冊了點擊事件的處理方法的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn4').click(function(){
+				$.post(
+					'/control8leds/2',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+			
+			// 幫id為btn5的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn5').click(function(){
+				$.post(
+					'/control8leds/3',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+			
+			// 幫id為btn6的按鈕標籤註冊了點擊事件的處理方法
+			$('#btn6').click(function(){
+				$.post(
+					'/control8leds/4',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+		
+			// 幫id為btn7的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn7').click(function(){
+				// 先關掉picamera，再回首頁
+				$.post(
+					'/web_video_streaming/off',
+					function(data){
+						window.location.href = '/';				
+					}
+				);
+			});
+		})
+	</script>
+	<style>
+		input {font-size:12px}
+	</style>
+</head>
+<!---->
+<!-- body為網頁的內容，也就是呈現使用者介面UI的地方 -->
+<!---->
+<body class="bg-warning">
+<div class="container">
+	<!-- 操作與顯示即時影像串流UI -->
+	<center>
+		<h3 class="bg-primary"><b>操作與顯示即時影像串流UI</b> </h3>
+		<button id="btn1" class="btn btn-success btn-md">啟動即時影像串流</b></button>
+		<button id="btn2" class="btn btn-success btn-md">關閉即時影像串流</b></button> <br>
+		<img id="streaming" width="430" height="300" alt="No Video Streaming Available!">
+	</center>
+		
+	<!-- 控制LED燈 UI -->
+	<center>
+		<h4 class="bg-primary"><b>控制LED燈與讀取室內溫、濕度值(DHT11)</b></h4>
+		<h5>
+		<button id="btn3" class="btn btn-success btn-md">奇數燈閃爍6次</button>
+		<button id="btn4" class="btn btn-success btn-md">偶數燈閃爍6次</button>
+		<button id="btn5" class="btn btn-success btn-md">PWM LED燈5秒</button>
+		<button id="btn6" class="btn btn-success btn-md">跑馬燈</button><br>
+		<label for="leds_status" class="text-primary"><b>LED燈狀態：</b></label>
+		<input type="text" id="leds_status" size="20" style="font-size:16px" readonly="true"> <br>
+		</h5>
+	</center>
+
+	<!-- 回首頁按鈕 -->
+	<center>
+	<h5>
+		<button id="btn7" class="btn btn-info btn-sm"><b>回首頁</b></button> <br/>
+	</h5>
+	</center>
+</div>
+<script>
+	// 建立影像串流伺服器網址
+	// 請將此URL改為http://IP_RPi:8000/stream.mjpg';
+	// 例如IP of PRi = 10.0.2.103，則URL=http://10.0.2.103:8000/stream.mjpg';
+	var web_video_streaming_url = 'http://140.137.41.122:8000/stream.mjpg';
+	// 取得顯示即時影像串流之元素(element)
+	var streamingelement = document.getElementById("streaming");
+	
+	// 顯示影像串流副程式
+	function loadstreaming()
+	{
+		streamingelement.src = window.web_video_streaming_url;
+	}
+	
+	// 不要顯示影像串流副程式
+	function offloadstreaming()
+	{
+		streamingelement.src = "";
+	}
+	
+	// 讓網頁載入時顯示影像串流
+	loadstreaming();    
+</script>
+</body>
+</html>
