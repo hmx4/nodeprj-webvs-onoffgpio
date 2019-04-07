@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cookie-parser": "~1.3.5",
+    "cookie-parser": "^1.3.5",
     "cookie-session": "^1.3.3",
     "debug": "^4.1.1",
-    "ejs": "~2.3.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-partials": "*",
     "morgan": "^1.9.1",

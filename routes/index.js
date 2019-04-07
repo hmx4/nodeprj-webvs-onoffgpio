@@ -166,26 +166,10 @@ router.post('/control8leds/:cmd', function(req, res){
 	
 	if(flag)
 	{
-		var ps = require('python-shell');
-		var options = {
-					pythonOptions: ['-u'], // get print results in real-time
-					mode: 'text',
-					args: [cmd]
-				};
-			
-		ps.PythonShell.run('./control-leds.py', options, function(err, results){
-				if (err) 
-				{
-					console.log( "Python回傳錯誤訊息" + err);
-				}
-				else
-				{
-					// 將JSON格式字串轉換成JSON物件
-					results = JSON.parse(results);
-					// 列印出Python程式control-leds.py回傳的訊息
-					console.log(results.message);
-				}
-		});
+		// 引用相同目錄(routes)下的control-8leds.js
+		var control = require("./control-8leds.js");
+		// 呼叫control_8leds方法(輸入命令cmd)
+		control.control_8leds(cmd); 
 	}
 });
 
