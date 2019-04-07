@@ -162,8 +162,6 @@ router.post('/control8leds/:cmd', function(req, res){
 	res.set({
 	  'charset': 'utf-8'  // 設定回傳結果之編碼為utf-8，網頁端才能正常顯示中文
 	});
-	res.send(message);    // 將JSON格式訊息回傳給前端網頁
-	
 	if(flag)
 	{
 		// 引用相同目錄(routes)下的control-8leds.js
@@ -171,6 +169,7 @@ router.post('/control8leds/:cmd', function(req, res){
 		// 呼叫control_8leds方法(輸入命令cmd)
 		control.control_8leds(cmd); 
 	}
+	res.send(message);    // 將JSON格式訊息回傳給前端網頁
 });
 
 module.exports = router;
