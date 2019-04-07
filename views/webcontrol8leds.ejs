@@ -67,19 +67,9 @@
 					}
 				);
 			});
-			
-			// 幫id為btn6的按鈕標籤註冊了點擊事件的處理方法
-			$('#btn6').click(function(){
-				$.post(
-					'/control8leds/4',
-					function(data){
-						$('#leds_status').val(data.message);
-					}
-				);
-			});
 		
-			// 幫id為btn7的按鈕標籤註冊了點擊事件的處理方法 
-			$('#btn7').click(function(){
+			// 幫id為btn6的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn6').click(function(){
 				// 先關掉picamera，再回首頁
 				$.post(
 					'/web_video_streaming/off',
@@ -113,8 +103,7 @@
 		<h5>
 		<button id="btn3" class="btn btn-success btn-md">奇數燈閃爍6次</button>
 		<button id="btn4" class="btn btn-success btn-md">偶數燈閃爍6次</button>
-		<button id="btn5" class="btn btn-success btn-md">PWM LED燈5秒</button>
-		<button id="btn6" class="btn btn-success btn-md">跑馬燈</button><br>
+		<button id="btn5" class="btn btn-success btn-md">跑馬燈</button><br>
 		<label for="leds_status" class="text-primary"><b>LED燈狀態：</b></label>
 		<input type="text" id="leds_status" size="20" style="font-size:16px" readonly="true"> <br>
 		</h5>
@@ -123,7 +112,7 @@
 	<!-- 回首頁按鈕 -->
 	<center>
 	<h5>
-		<button id="btn7" class="btn btn-info btn-sm"><b>回首頁</b></button> <br/>
+		<button id="btn6" class="btn btn-info btn-sm"><b>回首頁</b></button> <br/>
 	</h5>
 	</center>
 </div>

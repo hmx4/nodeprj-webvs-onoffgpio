@@ -150,9 +150,7 @@ router.post('/control8leds/:cmd', function(req, res){
 		message = {"message":"奇數LED燈正在閃爍!"};
 	else if (cmd=="2") 
 		message = {"message":"偶數LED燈正在閃爍!"};
-	else if(cmd=="3") 
-		message = {"message":"正用PWM驅動LED燈!"};
-	else if (cmd=="4")
+	else if (cmd=="3")
 		message = {"message":"LED正在執行跑馬燈!"};
 	else
 	{

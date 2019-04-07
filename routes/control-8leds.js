@@ -77,67 +77,6 @@ function Blink_Even_LEDs()
 	}
 }
 
-/* // PWM LEDs for 5 seconds
-function PWM_LEDs()
-{
-	// generate the pwm objects of LED pins with frequency=50Hz
-	pwm1 = GPIO.PWM(LED_PIN1, 50)
-	pwm2 = GPIO.PWM(LED_PIN2, 50)
-	pwm3 = GPIO.PWM(LED_PIN3, 50)
-	pwm4 = GPIO.PWM(LED_PIN4, 50)
-	pwm5 = GPIO.PWM(LED_PIN5, 50)
-	pwm6 = GPIO.PWM(LED_PIN6, 50)
-	pwm7 = GPIO.PWM(LED_PIN7, 50)
-	pwm8 = GPIO.PWM(LED_PIN8, 50)
-
-	// start the pwm objects with dutycycle starting from 0
-	pwm1.start(0)
-	pwm2.start(0)
-	pwm3.start(0)
-	pwm4.start(0)
-	pwm5.start(0)
-	pwm6.start(0)
-	pwm7.start(0)
-	pwm8.start(0)
-	
-	var i;
-    for (i = 0; i < 6; i++) { 
-		// do loop to increase the dutycycle of the pwm objects by 5% each loop
-		for dc in range(0, 101, 10):  
-			pwm1.ChangeDutyCycle(dc)
-			pwm2.ChangeDutyCycle(dc)
-			pwm3.ChangeDutyCycle(dc)
-			pwm4.ChangeDutyCycle(dc)
-			pwm5.ChangeDutyCycle(dc)
-			pwm6.ChangeDutyCycle(dc)
-			pwm7.ChangeDutyCycle(dc)
-			pwm8.ChangeDutyCycle(dc)
-			time.sleep(0.05) # sleep 0.1 second
-		// do loop to decrease the dutycycle of the pwm objects by 5% each loop
-		for dc in range(100, -1, -10):
-			pwm1.ChangeDutyCycle(dc)
-			pwm2.ChangeDutyCycle(dc)
-			pwm3.ChangeDutyCycle(dc)
-			pwm4.ChangeDutyCycle(dc)
-			pwm5.ChangeDutyCycle(dc)
-			pwm6.ChangeDutyCycle(dc)
-			pwm7.ChangeDutyCycle(dc)
-			pwm8.ChangeDutyCycle(dc)
-			time.sleep(0.05) # sleep 0.1 second
-	}
-
-	// stop the operation of the pwm objects		
-	pwm1.stop
-	pwm2.stop
-	pwm3.stop
-	pwm4.stop
-	pwm5.stop
-	pwm6.stop
-	pwm7.stop
-	pwm8.stop
-
-} */
-
 // Run the LEDS for 3 times
 function Run_LEDs()
 {
@@ -184,11 +123,6 @@ function control_8leds(command)
 		Blink_Even_LEDs();
 	}
 	else if(command=="3")
-	{
-		console.log("正用PWM驅動LED燈!");
-		PWM_LEDs();
-	}	
-	else if(command=="4")
 	{
 		console.log("LED正在執行跑馬燈!");
 		Run_LEDs();
