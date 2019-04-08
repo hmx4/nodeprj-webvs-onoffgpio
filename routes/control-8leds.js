@@ -47,6 +47,7 @@ function UnexportLEDs()
 function Blink_Odd_LEDs() {
 		//run the blinkOddLEDs function every 200ms
 		var blinkOddLEDsInterval = setInterval(blinkOddLEDs, 200); 
+		console.log(blinkOddLEDsInterval);
 		//stop blinking after 1.2 seconds
 		setTimeout(endBlinkLEDs(blinkOddLEDsInterval), 1200); 
 }
@@ -127,7 +128,7 @@ function control_8leds(command)
 	}	
 	else if(command=="2")
 	{
-		console.log("奇數LED燈正在閃爍!");
+		console.log("偶數LED燈正在閃爍!");
 		Blink_Even_LEDs();
 	}
 	else if(command=="3")
