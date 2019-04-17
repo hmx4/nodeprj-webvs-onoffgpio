@@ -67,9 +67,52 @@
 					}
 				);
 			});
-		
+
 			// 幫id為btn6的按鈕標籤註冊了點擊事件的處理方法 
 			$('#btn6').click(function(){
+				$.post(
+					'/control8leds/4',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+
+			// 幫id為btn7的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn7').click(function(){
+				$.post(
+					'/control8leds/5',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+
+			
+			// 幫id為btn8的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn8').click(function(){
+				$.post(
+					'/control8leds/6',
+					function(data){
+						$('#leds_status').val(data.message);
+					}
+				);
+			});
+
+			// 幫id為btn9的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn9').click(function(){
+				$.post(
+					'/control8leds/7',
+					function(data){
+						$('#temperature').val(data.temperature);
+						$('#humidity').val(data.humidity);
+					}
+				);
+			});
+
+
+			// 幫id為btn10的按鈕標籤註冊了點擊事件的處理方法 
+			$('#btn10').click(function(){
 				// 先關掉picamera，再回首頁
 				$.post(
 					'/web_video_streaming/off',
@@ -101,18 +144,27 @@
 	<center>
 		<h4 class="bg-primary"><b>控制LED燈與讀取室內溫、濕度值(DHT11)</b></h4>
 		<h5>
-		<button id="btn3" class="btn btn-success btn-md">奇數燈閃爍6次</button>
-		<button id="btn4" class="btn btn-success btn-md">偶數燈閃爍6次</button>
-		<button id="btn5" class="btn btn-success btn-md">跑馬燈</button><br>
+		<button id="btn3" class="btn btn-success btn-md">閃爍奇數LED燈</button>
+		<button id="btn4" class="btn btn-success btn-md">關閉基數LED燈</button>
+		<button id="btn5" class="btn btn-success btn-md">閃爍偶數LED燈</button>
+		<button id="btn6" class="btn btn-success btn-md">關閉偶數LED燈</button>
+		<button id="btn7" class="btn btn-success btn-md">執行跑馬燈</button>
+		<button id="btn8" class="btn btn-success btn-md">停止跑馬燈</button><br>
 		<label for="leds_status" class="text-primary"><b>LED燈狀態：</b></label>
-		<input type="text" id="leds_status" size="20" style="font-size:16px" readonly="true"> <br>
+		<input type="text" id="leds_status" size="16" style="font-size:16px" readonly="true">
+		<button id="btn9" class="btn btn-success btn-md">讀取溫溼度</button>
+		<label for="temperature" class="text-primary"><b>溫度(&deg;C)：</b></label>
+		<input type="text" id="temperature" size="6" style="font-size:16px" readonly="true">
+		<label for="humidity" class="text-primary"><b>濕度(%):</b></label>
+		<input type="text" id="humidity" size="6" style="font-size:16px" readonly="true"><br>
+		
 		</h5>
 	</center>
 
 	<!-- 回首頁按鈕 -->
 	<center>
 	<h5>
-		<button id="btn6" class="btn btn-info btn-sm"><b>回首頁</b></button> <br/>
+		<button id="btn10" class="btn btn-info btn-sm"><b>回首頁</b></button>
 	</h5>
 	</center>
 </div>

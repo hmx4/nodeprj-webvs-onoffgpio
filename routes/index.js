@@ -145,29 +145,46 @@ router.post('/control8leds/:cmd', function(req, res){
 	cmd=req.params.cmd;
 	console.log(cmd);
 
-	flag = true;
+	// 引用相同目錄(routes)下的control-8leds.js
+	var control = require("./control-8leds.js");
+
+	flag = 1;
 	if(cmd=="1") 
-		message = {"message":"奇數LED燈正在閃爍!"};
+		result = {"message":"奇數LED燈正在閃爍!"};
 	else if (cmd=="2") 
-		message = {"message":"偶數LED燈正在閃爍!"};
-	else if (cmd=="3")
-		message = {"message":"LED正在執行跑馬燈!"};
-	else
-	{
-		flag = false;
-		message = {"message":"無效的命令!"};
+		result = {"message":"已經關閉奇數LED燈!"};
+	else if (cmd=="3") 
+		result = {"message":"偶數LED燈正在閃爍!"};
+	else if (cmd=="4") 
+		result = {"message":"已經關閉偶數LED燈!"};
+	else if (cmd=="5") 
+		result = {"message":"LED正在執行跑馬燈!"};
+	else if (cmd=="6")
+		result = {"message":"已經關閉LED燈!"};
+	else if (cmd=="7") {
+		var dhtsensor = require('node-dht-sensor');
+		dhtsensor.initialize(22, 12); //22 is for DHT22, 12 is the GPIO12 we connect to on the Pi
+		var readout = dhtsensor.read();  // read the sensor values
+		temperature = readout.temperature.toFixed(1); // read the temperaure value
+		console.log(temperature);
+		humidity = readout.humidity.toFixed(1);       // read the humidity value
+		console.log(humidity);
+		result = {"temperature":temperature, "humidity":humidity};
+	}
+	else {
+		flag = 0;
+		result = {"message":"無效的命令!"};
 	}
 	res.set({
 	  'charset': 'utf-8'  // 設定回傳結果之編碼為utf-8，網頁端才能正常顯示中文
 	});
-	if(flag)
-	{
-		// 引用相同目錄(routes)下的control-8leds.js
-		var control = require("./control-8leds.js");
+	res.send(result);    // 將JSON格式訊息回傳給前端網頁
+
+  // cmd 為1~6時執行控制LED燈函數
+	if(flag==1 && cmd !="7" )	{
 		// 呼叫control_8leds方法(輸入命令cmd)
 		control.control_8leds(cmd); 
 	}
-	res.send(message);    // 將JSON格式訊息回傳給前端網頁
 });
 
 module.exports = router;

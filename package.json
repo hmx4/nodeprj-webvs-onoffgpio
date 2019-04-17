@@ -14,6 +14,7 @@
     "express": "^4.16.4",
     "express-partials": "*",
     "morgan": "^1.9.1",
+    "node-dht-sensor": "^0.0.34",
     "onoff": "^4.1.1",
     "python-shell": "^1.0.7",
     "request": "^2.88.0",
